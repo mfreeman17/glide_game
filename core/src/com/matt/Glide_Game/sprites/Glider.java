@@ -1,6 +1,7 @@
 package com.matt.Glide_Game.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.matt.Glide_Game.Constants;
 import com.matt.Glide_Game.AssetConstants;
@@ -11,8 +12,15 @@ public class Bird {
     private Vector3 pos;
     private Texture texture;
     private Vector3 vel;
+    private Rectangle bounds;
 
 
+    public Bird (int x, int y){
+        pos = new Vector3(x,y,0);
+        vel = new Vector3 (0,0,0);
+        texture = new Texture(AssetConstants.Glider);
+        bounds = new Rectangle(x,y, texture.getWidth(), texture.getHeight());
+    }
     public Texture getTexture() {
         return texture;
     }
@@ -25,11 +33,6 @@ public class Bird {
         vel.add(0,JUMP,0);
     }
 
-    public Bird (int x, int y){
-        pos = new Vector3(x,y,0);
-        vel = new Vector3 (0,0,0);
-        texture = new Texture(AssetConstants.BIRD);
-    }
     public void update(float dt){
         vel.add(0,GRAVITY,0);
         vel.scl(dt);
@@ -43,6 +46,10 @@ public class Bird {
             vel.y=0;
         }
         vel.scl(1/dt);
+        bounds.setPosition(pos.x, pos.y);
 
+    }
+    public Rectangle getBounds(){
+        return  bounds;
     }
 }
